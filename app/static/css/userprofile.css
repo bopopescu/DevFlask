@@ -1,0 +1,205 @@
+/*Google Web Fonts
+=================================*/
+@import url(https://fonts.googleapis.com/css?family=Port+Lligat+Slab);
+
+
+*,*:before,*:after{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.wrapper{
+  height: 100vh;
+  width: 100vw;
+  background-color: #eee;
+}
+header{
+  position: relative;
+  background-color: #39cb58;
+  /* height: 60px; */
+  box-shadow: 0 2.5px 2.5px rgba(0,0,0,0.25);
+}
+header .fa-bars{
+  height: 60px;
+  width: 70px;
+/* padding: 15px; */
+  line-height: 60px;
+  color: #eee;
+  text-align: center;
+  background-color: rgba(0,0,0,0.05);
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+header .fa-bars:hover{
+  background-color: rgba(0,0,0,0.15);
+}
+
+/*Menu Logo
+================================*/
+.menu ul li a.logo{
+  top: 0;
+  bottom: 0;
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  margin: 15px auto;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 1px 2px #000;
+  color: #fff;
+  background-color: #39bb58;
+  font-family: Port Lligat Slab;
+  font-size: 35px;
+  border-radius: 100%;
+  transition: 0.5s ease;
+}
+.menu ul li a.logo:hover{
+  color: #222;
+  background-color: lightgreen;
+  transform: rotate(360deg);
+}
+
+/* Sidebar Menu
+================================*/
+.menu{
+  position: absolute;
+  background-color: #333;
+  text-align: center;
+  font-family: Open Sans;
+  height: 100vh;
+  width: 150px;
+  top: 0;
+  left: -150px;
+  z-index: 100;
+  transition: 0.4s ease;
+}
+.menu ul li a{
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  margin: 5px 0;
+  padding: 15px;
+  transition: 0.4s ease;
+}
+.menu ul li a:hover{
+  color: #fff;
+  background-color: #222;
+}
+
+/* Further Controls Code
+=================================*/
+div.controls{
+  height: 60px;
+  width: 60px;
+  margin-top: 6.5px;
+  /* background-color: rgba(0,0,0,0.25); */
+}
+.circle{
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  color: #eee;
+  background-color: #39cb58;
+  border-radius: 100%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 5px;
+  margin-left: 5px;
+  box-shadow: 0 2.5px 2.5px rgba(0,0,0,0.25);
+  transition: 0.3s ease;
+}
+.more{
+  box-shadow: inset 0 0 2.5px 1px rgba(0,0,0,0.1),0 3px 3px rgba(0,0,0,0.2);
+}
+.more:hover{
+  background-color: #39bb58;
+  box-shadow: inset 0 0 2.5px 1px rgba(0,0,0,0.1),0 4px 3px rgba(0,0,0,0.25);
+}
+.circle:active{
+  background-color: #39cc85;
+  box-shadow: 0 5px 3.5px rgba(0,0,0,0.2);
+}
+
+/* Tooltip Code
+==========================*/
+.tip{
+  position: relative;
+  box-sizing: border-box;
+}
+.tip:after{
+  position: absolute;
+  content: attr(data-info);
+  top: 25%;
+  right: -130px;
+  height: 25px;
+  width: 100px;
+  font-family: Open Sans;
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  color: #ddd;
+  background-color: #222;
+  opacity: 0;
+  border-radius: 3px;
+  box-shadow: 0 2px 1px #aaa;
+  cursor: pointer;
+  /* Font Anti-Aliasing */
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-shadow: rgba(0,0,0,0.01) 0 0 1px;
+          text-shadow: rgba(0,0,0,0.01) 0 0 1px;
+  transition: 0.5s;
+  /*Cubic Bezier for the elastic Effect*/
+  transition-timing-function: cubic-bezier(1,2.5,0,1.5);
+}
+.tip:hover:after{
+  opacity: 1;
+  right: -110px;
+}
+.tip:hover{
+  opacity: 0.75;
+}
+.more-options {
+  margin-top: 6.5px;
+}
+.more-options .tip{
+  transform: scale(0.8);
+  /* margin-top: -5px; */
+}
+.more-options .circle{
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 17px;
+  margin-top: 1px;
+  margin-left: 10px;
+}
+.more-options .fa{
+  opacity: 0;
+  margin-top: -45px;
+  transition: 0.22s ease;
+}
+
+/* Blog Post
+=============================*/
+.content{
+  margin-top: -55px;
+  padding: 20px;
+  padding-top: 10px;
+  /* background-color: #ddd; */
+}
+.post{
+  height: 30vh;
+  width: 50vw;
+  background-color: #fff;
+  margin: 0 auto;
+  box-shadow: 0 2.5px 2.5px rgba(0,0,0,0.05);
+}
+
+
+body{
+  color: #fff;
+  background-color: #374954;
+}

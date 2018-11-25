@@ -1,0 +1,204 @@
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.js"></script>
+<ul class="rolldown-list" id="myList">
+    {% for post in posts %}
+        <li><p>{{ post.datetime.date() }} </p> <a onclick="javascript:triger_li(this)">{{ post.title }}</a> </li>
+    {% endfor %}
+  </ul> 
+  
+  
+  
+  
+  <div>
+        <button id="btnReload" class="btn">Reload</button><button id='nextPage'  class="btn-right"  onclick="triger_nextpage()">nextPage</button><br>
+        <button id="btndashboard" onclick="triger_dashboard()" class="btn">dashboard</button><button id='follow' class="btn-right" onclick="triger_follow">follow</button><br>
+        <button id="btnWrite" onclick="triger_write()" class="btn">write</button><br>
+        <button id="btnFeed" onclick="triger_feed()" class="btn">feed</button><br>
+        <button id="btnContact" onclick="triger_contact()" class="btn">contact me</button><br>
+  </div>
+  
+  <style>
+      html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font: 1.2em/1.4 'Oswald', sans-serif;
+  color: #fff;
+  text-align: right;
+  background-color: #374954;
+}
+p {
+  font-size: 13px;
+  position: absolute;
+  right: 30px;
+  
+}
+.rolldown-list {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+.rolldown-list li {
+  padding: 1em;
+  margin-bottom: .125em;
+  display: block;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.rolldown-list li {
+  visibility: hidden;
+  -webkit-animation: rolldown .7s 1;
+          animation: rolldown .7s 1;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.rolldown-list li:nth-child(2n) {
+  background-color: #444;
+}
+
+.rolldown-list li:nth-child(2n+1) {
+  background-color: #333;
+}
+
+#myList {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+}
+
+.btn {
+    position: absolute;
+    left: 0px;
+  color: #333;
+  background: #ccc;
+  text-transform: uppercase;
+  border: none;
+  padding: .5em 1em;
+  width: 10%;
+
+}
+li:hover{
+  background: #ddd;
+}
+.btn-right {
+    position: absolute;
+    right: 0px;
+  color: #333;
+  background: #ccc;
+  text-transform: uppercase;
+  border: none;
+  padding: .5em 1em;
+  width: 10%;
+
+}
+.btn:hover {
+  background: #ddd;
+}
+
+
+
+
+.btn-right:hover {
+  background: #ddd;
+}
+
+.list-item:hover {
+  background: rgb(235, 201, 12);
+}
+
+
+
+
+#btnReload:hover {
+  background: #ddd;
+}
+
+@-webkit-keyframes rolldown {
+  0% {
+    visibility: visible;
+    -webkit-transform: rotateX(180deg) perspective(500px);
+            transform: rotateX(180deg) perspective(500px);
+  }
+  70% {
+    visibility: visible;
+    -webkit-transform: rotateX(-20deg);
+            transform: rotateX(-20deg);
+  }
+  100% {
+    visibility: visible;
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+  }
+}
+
+@keyframes rolldown {
+  0% {
+    visibility: visible;
+    -webkit-transform: rotateX(180deg) perspective(500px);
+            transform: rotateX(180deg) perspective(500px);
+  }
+  70% {
+    visibility: visible;
+    -webkit-transform: rotateX(-20deg);
+            transform: rotateX(-20deg);
+  }
+  100% {
+    visibility: visible;
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+  }
+}
+
+  </style>
+<script >
+  username = Cookies.get('username')
+    function triger_write(){
+      window.location.href = '/write'
+    }
+      // Increments the delay on each item.
+    $('.rolldown-list li').each(function () {
+    var delay = ($(this).index() / 4) + 's';
+    $(this).css({
+        webkitAnimationDelay: delay,
+        mozAnimationDelay: delay,
+        animationDelay: delay
+    });
+    });
+
+    $('#btnReload').click(function () {
+    $('#myList').removeClass('rolldown-list');
+    setTimeout(function () {
+        $('#myList').addClass('rolldown-list');
+    }, 1);
+    });
+    lists = document.getElementsByTagName('li')
+    for(let i=0; i<lists.length; i++)
+    {
+      lists[i].className = 'list-item'
+    }
+    function triger_li(el){
+      title = el
+      console.log(el.text)
+      text = el.text
+      username = Cookies.get('username')
+      title = text.split(' ')
+      // console.log(title)
+      // console.log(title.join('-'))
+      window.location.href= '/'+username+'/'+title.join('-')
+    }
+    function triger_dashboard(){
+      window.location.href = '/'+username+'/dashboard'
+    }
+    function triger_feed(){
+      window.location.href = '/'+username+'/feed'
+    }
+    
+</script>

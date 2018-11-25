@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}" />
+</head>
+
+<body>
+
+    <div id="test-editormd">
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+
+    <script type="text/javascript">
+        
+        var testEditor;
+
+        content = {{content| tojson}}
+        // if (!content){
+        //     content = " "
+        // }
+        // content = JSON.parse(content)
+        
+        testEditor = editormd("test-editormd", {
+            
+            // readOnly: true,
+            width: "90%",
+            markdown:content,
+            height: "800px",
+            syncScrolling: "single",
+            path: "{{ url_for('static',filename='editormd/lib/') }}"
+        });
+
+    </script>
+ 
+</body>
+
+</html>

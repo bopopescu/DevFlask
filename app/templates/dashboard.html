@@ -1,0 +1,141 @@
+
+
+
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <script src="/static/js/echarts.min.js"></script> 
+       <!-- <link rel="stylesheet" href="/static/css/dashboard.css">      -->
+   </head>
+   <body>
+    <style>
+
+        .btn {
+            position: relative;
+            left: 0px;
+            color: #333;
+            background: #ccc;
+            text-transform: uppercase;
+            border: 1px;
+            padding: .5em 1em;
+            width: 90%;
+            height: auto;
+        }
+        .btn:hover {
+          background: #ddd;
+        }
+        
+        .container {
+            position: absolute;
+            right: 0%;
+            width:80%;
+        }
+        .buttonList{
+            position: absolute;
+            left: 0px;
+            height: 50%;
+            width: 20%;
+        }
+        .selectList{
+            position: relative;
+            left: 0px;
+            height: 50%;
+            width: 20%;
+        }
+        .container{
+            right: 0px;
+            height: 100%;
+            width: 80%;
+        }
+    </style>
+        
+        
+    <div class="buttonList">
+        <button class="btn" onclick="triger_activetime()">activetime</button><br>
+    <button class="btn" onclick="triger_language()">languages</button><br>
+    
+    <button class="btn" onclick="triger_lastnday">last_N_day</button><br>
+    
+    </div>
+       <div class="container" id="container_activetime" ></div>
+      
+       <script type="text/javascript">
+var dom = document.getElementById("container_activetime");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var xAxisData = Array(60*24).fill(' ')
+for(var i=0; i<24; i++){
+    for(var j=0; j<60; j++){
+        let k = "0"
+        if(j<10){
+            k += j
+        }
+        xAxisData[i*60+j] = " "+i+":"+k
+    }
+}
+var data1 = {{ active_times | tojson }}
+var data2 = [];
+
+option = {
+    title: {
+        text: 'activetime'
+    },
+    legend: {
+        data: ['bar'],
+        align: 'left'
+    },
+    toolbox: {
+        // y: 'bottom',
+        feature: {
+            magicType: {
+                type: ['stack', 'tiled']
+            },
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
+        }
+    },
+    tooltip: {},
+    xAxis: {
+        data: xAxisData,
+        silent: false,
+        axisLabel :{
+            interval: 59
+        },
+        splitLine: {
+            show: true,
+            interval: 59
+        },
+        axisTick :{
+            interval:59,
+            inside:true
+        }
+    },
+    yAxis: {
+    },
+    series: [{
+        name: 'bar',
+        type: 'bar',
+        data: data1,
+        
+        animationDelay: function (idx) {
+            return idx * 5;
+        }
+    }],
+    animationEasing: 'elasticOut',
+    animationDelayUpdate: function (idx) {
+        return idx * 5;
+    }
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+
+
+
+   </body>
+</html>
