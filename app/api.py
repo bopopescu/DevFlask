@@ -1,10 +1,11 @@
 from app import app, db
-from flask import request,g,abort
+from flask import request,g,abort,jsonify
 import json
 from models import User,Post
 from authen.authenticate import authen_token, set_token
 from authen.gen import generate_token
 from danger import encrypt_password, validate_password
+from hotdata.codeInfo import *
 
 def authen_validate(request):
     user_id = int(request.cookies.get('user_id',None))
@@ -74,4 +75,25 @@ def api_pubpost():
     db.session.add(post)
     db.session.commit()
     return json.dumps({'status':'sucess'})
+    
+
+
+@app.route('/api_v1/codeInfo',methods=['POST'])
+def api_codeinfo(): 
+    username = request.json.get('username')
+    user = User.query.filter_by(username = username).first()
+    if user == None:
+        abort(404)
+    user_id = user.user_id
+    print('================')
+    print(user_id)
+    print("="*20)
+    infotype = request.json.get('infotype')
+
+    if infotype == 'language':
+        language = get_code_info(user_id)
+        if not language:
+            
+            return json.dumps( {'status':'notexist', 'test':1} )
+        return language
     

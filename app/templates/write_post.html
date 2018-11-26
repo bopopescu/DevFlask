@@ -12,26 +12,17 @@
         * { box-sizing:border-box; }
 
 /* basic stylings ------------------------------------------ */
-body 				 { background:url(https://scotch.io/wp-content/uploads/2014/07/61.jpg); }
+body{
+    background-color: #374954;
+}
 .container 		{ 
   font-family:'Roboto';
   width:600px; 
   margin:30px auto 0; 
   display:block; 
-  background:#FFF;
+  background:#374954;
   padding:10px 50px 50px;
 }
-h2 		 { 
-  text-align:center; 
-  margin-bottom:50px; 
-}
-h2 small { 
-  font-weight:normal; 
-  color:#888; 
-  display:block; 
-}
-.footer 	{ text-align:center; }
-.footer a  { color:#53B2C8; }
 
 /* form starting stylings ------------------------------- */
 .group 			  { 
@@ -45,6 +36,8 @@ input 				{
   width:300px;
   border:none;
   border-bottom:1px solid #757575;
+  background-color: #374954;
+  background: #374954
 }
 input:focus 		{ outline:none; }
 
@@ -104,6 +97,26 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
   pointer-events:none;
   opacity:0.5;
 }
+.form-title{
+  color: #374954;
+  background-color: #374954;
+}
+.btn {
+    position: absolute;
+    left: 0px;
+  color: #333;
+  background: #ccc;
+  text-transform: uppercase;
+  border: none;
+  padding: .5em 1em;
+  width: 10%;
+
+}
+.btn:hover {
+  background: #ddd;
+}
+
+
 
 /* active state */
 input:focus ~ .highlight {
@@ -114,25 +127,25 @@ input:focus ~ .highlight {
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-	from { background:#5264AE; }
+	from { background-color:#374954; }
   to 	{ width:0; background:transparent; }
 }
 @-moz-keyframes inputHighlighter {
-	from { background:#5264AE; }
+	from { background-color:#374954; }
   to 	{ width:0; background:transparent; }
 }
 @keyframes inputHighlighter {
-	from { background:#5264AE; }
+	from { background-color:#374954; }
   to 	{ width:0; background:transparent; }
 }
     </style>
     <div class="container">
   
   
-        <form>
+        <form class="form-title">
           
          
-          <div class="group">      
+          <div class="group" >      
             <input type="text" id='title' required>
             <span class="highlight"></span>
             <span class="bar"></span>
@@ -146,7 +159,7 @@ input:focus ~ .highlight {
 
     <div id="test-editormd">
     </div>
-    <button id="login-button" onclick="javascript:sendInfo()">提交</button>
+    <button class="btn"id="login-button" onclick="javascript:sendInfo()">提交</button>
 
     <script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>

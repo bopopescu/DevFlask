@@ -188,14 +188,15 @@ li:hover{
       title = el
       console.log(el.text)
       text = el.text
-      username = Cookies.get('username')
+      
       title = text.split(' ')
       // console.log(title)
       // console.log(title.join('-'))
-      window.location.href= '/'+username+'/'+title.join('-')
+      window.location.pathname+='/'+title.join('-')
     }
     function triger_dashboard(){
-      window.location.href = '/'+username+'/dashboard'
+      
+      window.location.pathname +='/dashboard'
     }
     function triger_feed(){
       window.location.href = '/'+username+'/feed'
