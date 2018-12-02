@@ -117,3 +117,19 @@ def api_codeinfo():
         return language
     
     
+@app.route('/api_v1/posts',methods=['DELETE'])
+def api_deletepost():
+    if not authen_validate(request):
+            abort(400)
+    content = request.json.get('content')
+    user_id = request.json.get('user_id')
+    title = request.json.get('title')
+    username = request.json.get('username')
+    
+    
+    post = Post.query.filter_by(title=title,username=username).first()
+    
+    
+    db.session.delete(post)
+    db.session.commit()
+    return json.dumps({'status':'success'})

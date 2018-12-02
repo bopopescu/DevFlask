@@ -26,6 +26,17 @@
   width: 10%;
 
 }
+.delete {
+    position: absolute;
+    right: 15%;
+  color: #333;
+  background:rgb(204, 20, 20);
+  text-transform: uppercase;
+  border: none;
+  padding: .5em 1em;
+  width: 10%;
+
+}
 .btn:hover {
   background: #ddd;
 }
@@ -65,7 +76,41 @@
 
     </script>
     <script>
-        
+        count = 0
+        function deletePost(){
+            if(count < 3){
+                alert('dangerous operation ! ')
+                count++
+                return ;
+            }
+            data = {
+                "username": username,
+                "user_id": user_id,
+                "title": title
+            }
+            xhr = new XMLHttpRequest()
+            var url = '/api_v1/posts'
+            xhr.open("DELETE", url, true)
+            xhr.setRequestHeader("Content-type", "application/json")
+            xhr.onreadystatechange = function () {
+                if (xhr.status == 200) {
+                   
+                    alert('delete success!')
+                    window.location.pathname = '/'+username
+
+                }
+                if (xhr.status == 400) {
+                    alert('delete falied')
+                }
+            }
+
+            xhr.send(JSON.stringify(data))
+
+        }
+
+
+
+
         function modifyPost(method = 'put'){
 
             try{
@@ -122,13 +167,19 @@
         // alert('outer')
         if(username == authorname){
             // alert('inner')
-            button = document.createElement('button')
-            button.className = 'btn'
-            button.textContent = '修改'
-            button.onclick = modifyPost
+            modify_button = document.createElement('button')
+            modify_button.className = 'btn'
+            modify_button.textContent = '修改'
+            modify_button.onclick = modifyPost
+
+            delete_button = document.createElement('button')
+            delete_button.className = 'delete'
+            delete_button.textContent = '删除'
+            delete_button.onclick = deletePost
             body = document.getElementById('body')
-            body.appendChild(button)
-            
+            body.appendChild(modify_button)
+            body.appendChild(delete_button)
+
             setInterval(modifyPost, 1000*3, 'autosave')
         }
 
