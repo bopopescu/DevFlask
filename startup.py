@@ -1,2 +1,4 @@
 import os
-os.system("flask run --host=0.0.0.0 --port=80")
+import daemon
+cmd = "uwsgi --socket 0.0.0.0:80 --protocol=http --process 4  -w run:app"
+os.system(cmd)

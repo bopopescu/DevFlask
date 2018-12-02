@@ -56,9 +56,12 @@ def api_adduser():
 
     hashpwd = encrypt_password(password)
     new_user = User(username=username,password=hashpwd)
+    
     db.session.add(new_user)
     db.session.commit()
-    return json.dumps({'user_id':new_user.user_id})
+    token = generate_token(username)
+    set_token(new_user.user_id, token)
+    return json.dumps({'user_id':new_user.user_id, 'access_token':token})
 
 
 
@@ -76,6 +79,22 @@ def api_pubpost():
     db.session.commit()
     return json.dumps({'status':'sucess'})
     
+@app.route('/api_v1/posts',methods=['PUT'])
+def api_modifypost():
+    if not authen_validate(request):
+            abort(400)
+    content = request.json.get('content')
+    user_id = request.json.get('user_id')
+    title = request.json.get('title')
+    username = request.json.get('username')
+    print(title)
+    print(username)
+    post = Post.query.filter_by(title=title,username=username).first()
+    print(post)
+    post.content = content
+    db.session.add(post)
+    db.session.commit()
+    return json.dumps({'status':'success'})
 
 
 @app.route('/api_v1/codeInfo',methods=['POST'])
@@ -96,4 +115,5 @@ def api_codeinfo():
             
             return json.dumps( {'status':'notexist', 'test':1} )
         return language
+    
     

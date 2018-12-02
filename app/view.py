@@ -6,8 +6,15 @@ from authen.authenticate import authen_token, set_token
 from authen.gen import generate_token
 from danger import encrypt_password, validate_password
 from hotdata.codeInfo import *
+from werkzeug import secure_filename
+import os
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/index',methods=['GET'])
 def index():
@@ -71,3 +78,24 @@ def tobits(s):
         bits = '00000000'[len(bits):] + bits
         result.extend([int(b) for b in bits])
     return result
+
+
+@app.route('/index')
+def view_index():
+    return 'hello'
+
+@app.route('/upload',methods=['GET','POST'])
+def view_upload_files():
+    if request.method == 'GET':
+        return render_template('upload_files.html')
+   
+            
+
+
+@app.route('/recieve',methods=['POST'])
+def recieve_file():
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join('/root/Pictures', filename))
+    return json.dumps({'status':'post sucess'})

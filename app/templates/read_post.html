@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}" />
 </head>
 
-<body>
+<body id='body'>
 
     <div id="test-editormd">
     </div>
@@ -15,6 +15,22 @@
         body{
             background-color: #374954;
         }
+        .btn {
+    position: absolute;
+    right: 0px;
+  color: #333;
+  background: #ccc;
+  text-transform: uppercase;
+  border: none;
+  padding: .5em 1em;
+  width: 10%;
+
+}
+.btn:hover {
+  background: #ddd;
+}
+
+
     </style>
 
     <script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.js"></script>
@@ -38,9 +54,87 @@
             markdown:content,
             height: "800px",
             syncScrolling: "single",
-            path: "{{ url_for('static',filename='editormd/lib/') }}"
-        });
+            path: "{{ url_for('static',filename='editormd/lib/') }}",
+            tex:true
 
+        });
+        testEditor.katexURL={
+            js  : "https://cdn.bootcss.com/mathjax/2.7.5/latest.js",  
+            
+        }
+
+    </script>
+    <script>
+        
+        function modifyPost(method = 'put'){
+
+            try{
+                content = testEditor.getMarkdown()
+            }catch(err){
+
+            }
+            data = {
+                "content": content,
+                "username": username,
+                "user_id": user_id,
+                "title": title
+            }
+            xhr = new XMLHttpRequest()
+            var url = '/api_v1/posts'
+            xhr.open("PUT", url, true)
+            xhr.setRequestHeader("Content-type", "application/json")
+            
+           
+            xhr.onreadystatechange = function () {
+                if (xhr.status == 200) {
+                    var user_id = Cookies.get('user_id')
+
+                    
+                    
+                    if(method != 'autosave')
+                    {
+                        alert('post success')
+                        window.location.pathname = '/'+username
+                    }
+                    
+                }
+                if (xhr.status == 400) {
+                    if(method == 'autosave'){
+                        alert('autosave failed please to login')
+                    }else
+                        alert('please to login ')
+                    window.location.href = '/login'
+                }
+            }
+
+            xhr.send(JSON.stringify(data))
+
+        }
+        username = Cookies.get('username')
+        title = window.location.pathname.split('/')[2]
+        
+        title = decodeURI(title)
+        title = title.split('-').join(' ')
+        authorname = window.location.pathname.split('/')[1]
+        user_id = Cookies.get('user_id')
+       
+        
+        // alert('outer')
+        if(username == authorname){
+            // alert('inner')
+            button = document.createElement('button')
+            button.className = 'btn'
+            button.textContent = '修改'
+            button.onclick = modifyPost
+            body = document.getElementById('body')
+            body.appendChild(button)
+            
+            setInterval(modifyPost, 1000*3, 'autosave')
+        }
+
+        
+        
+        
     </script>
  
 </body>

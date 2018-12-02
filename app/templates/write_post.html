@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Simple example</title>
+    <title>write</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}" />
 </head>
 
@@ -203,6 +203,7 @@ input:focus ~ .highlight {
                     var user_id = Cookies.get('user_id')
                     alert('post success')
                     posted = true
+                    window.location.pathname = '/'+username
                     
                 }
                 if (xhr.status == 401) {
@@ -214,6 +215,7 @@ input:focus ~ .highlight {
             xhr.send(JSON.stringify(data))
         }
     </script>
+    
 </body>
 
 </html>

@@ -327,7 +327,7 @@
                     }
                 }
 
-                xhr.send()
+                
             }
             function registerUser(){
                 
@@ -358,7 +358,7 @@
                         Cookies.remove('user_id')
                         Cookies.set('user_id', response['user_id'])
                         Cookies.remove('username')
-                        Cookies.set('username', response['username'])
+                        Cookies.set('username', username)
                         
                         window.location.href = '/' + username
                     }else{

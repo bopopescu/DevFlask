@@ -1,0 +1,41 @@
+
+
+
+
+<body>
+        <style>
+                body{
+                    background-color: #374954;
+                }
+                .btn {
+            position: absolute;
+            left: 0px;
+          color: #333;
+          background: #ccc;
+          text-transform: uppercase;
+          border: none;
+          padding: .5em 1em;
+          width: 10%;
+        
+        }
+        .btn:hover {
+          background: #ddd;
+        }
+        form {
+            width: 80%;
+            height:80%;
+        }
+        .pic{
+            width: 80%;
+            height:80%;
+            background-color: #fff;
+        }
+            </style>
+        
+    <form method="post" action="/recieve" enctype="multipart/form-data" >
+        <input class="pic"type="file" name="file">
+        <input class="btn" type="submit" value="Upload">
+    </form>
+        
+</body>
+
